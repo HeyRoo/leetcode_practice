@@ -86,7 +86,5 @@ int main(int argc, char const *argv[])
         for_each(res[i].begin(),res[i].end(),show<int>);
         cout << " ;";
     }
-    
-
     return 0;
 }
