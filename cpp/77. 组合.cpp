@@ -25,29 +25,26 @@ using namespace std;
 class Solution {
 public:
 
-    void dfs(vector<int>& arr, vector<int>& cur, int idx, int k, vector<vector<int>>& ans){
-        
-        if(arr.size()==k){
+    void dfs(vector<int>& cur, int idx,int n, int k, vector<vector<int>>& ans){
+        if(cur.size() + (n-idx+1) < k){
+            return ;
+        }       
+        if(cur.size()==k){
             ans.push_back(cur);
             return ;
         }
-        if(!cur.size()||arr[idx]>=cur[cur.size()-1])
-        {
-            cur.push_back(arr[idx]);
-            dfs(arr, cur, idx + 1, k, ans);
-            cur.pop_back();
-        }
+
+        cur.push_back(idx);
+        dfs(cur, idx + 1, n, k, ans);
+        cur.pop_back();
+        dfs(cur, idx+1, n, k, ans);
         return ;
     }
 
     vector<vector<int>> combine(int n, int k) {
         vector<vector<int>> ans;
         vector<int> cur;
-        vector<int> arr(n);
-        for(int i=0; i<n; i++){
-            arr[i] = i+1;
-        }
-        dfs(arr, cur, 0, k, ans);
+        dfs(cur, 1, n, k, ans);
         return ans;
     }
 };
